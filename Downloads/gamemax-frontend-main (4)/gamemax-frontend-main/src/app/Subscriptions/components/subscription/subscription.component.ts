@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SubscriptionService } from '../../services/subscription.service';
 import { Subscription } from '../../models/subscription';
 import { Router } from "@angular/router";
+import {AuthenticationService} from "../../../user/services/login/authentification.service";
 
 @Component({
   selector: 'app-subscription',
@@ -26,11 +27,15 @@ export class SubscriptionComponent implements OnInit {
 
   constructor(
     private subscriptionService: SubscriptionService,
+    private authenticationService: AuthenticationService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.userId = this.authenticationService.currentUserValue?.userId;
+    console.log(this.userId);
     this.checkUser(this.userId);
+
   }
 
   buyNow(subscriptionType: string): void {
